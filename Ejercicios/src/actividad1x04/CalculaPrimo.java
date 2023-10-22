@@ -7,32 +7,33 @@ import java.io.PrintStream;
 
 public class CalculaPrimo {
 	public static void main(String[] args) throws IOException {
-		
 		BufferedReader entrada = null;
-		
+
 		try {
 			entrada = new BufferedReader(new InputStreamReader(System.in));
 			PrintStream salida = new PrintStream(System.out);
 			String linea = entrada.readLine();
 			int num = Integer.parseInt(linea);
 			boolean primo = esPrimo(num);
+
 			if (primo) {
 				salida.println("El numero " + num + " es primo");
 				salida.flush();
 			} else {
-				salida.println(num + " no es primo numeros primos menores que " + num);
+				salida.println(num + " no es primo, números primos menores que " + num);
 				salida.flush();
+
 				for (int i = 1; i < num; i++) {
 					primo = esPrimo(i);
+
 					if (primo) {
 						salida.println("El numero " + i + " es primo");
 						salida.flush();
 					}
-
 				}
 			}
 		} finally {
-
+			// No se realiza ninguna operación de cierre aquí
 		}
 	}
 
@@ -43,9 +44,9 @@ public class CalculaPrimo {
 				rep++;
 			}
 		}
-		if (rep < 2) { return true; }
-		return false;
-
+		if (rep < 2) {
+			return true; // Devuelve verdadero si el número es primo
+		}
+		return false; // Devuelve falso si el número no es primo
 	}
-
 }
