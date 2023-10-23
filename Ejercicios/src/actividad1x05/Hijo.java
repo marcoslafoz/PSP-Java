@@ -24,21 +24,25 @@ public class Hijo {
                     int numprimo = Integer.parseInt(linea);
 
                     if (!esPrimo(numprimo)) {
-                        salida.println("El numero " + numprimo + " no es primo");
+                        // Enviar mensaje al padre indicando que el número no es primo
+                        salida.println("El número " + numprimo + " no es primo");
                         salida.flush();
                         salida.println("Primos menores que " + numprimo + ": ");
                         salida.flush();
 
                         for (int x = numprimo; x > 0; x--) {
                             if (esPrimo(x)) {
+                                // Enviar los números primos menores al padre
                                 salida.println(x);
                                 salida.flush();
                             }
                         }
                     } else {
-                        salida.println("El numero " + numprimo + " es primo");
+                        // Enviar mensaje al padre indicando que el número es primo
+                        salida.println("El número " + numprimo + " es primo");
                         salida.flush();
                     }
+                    // Indicar al padre que ha terminado este proceso hijo
                     salida.println("finproceso");
                     salida.flush();
                 } catch (NumberFormatException e) {
@@ -46,7 +50,7 @@ public class Hijo {
                     salida.println("dato_invalido");
                     salida.flush();
                 }
-                // Volvemos a preguntar a Padre
+                // Volvemos a preguntar al Padre
                 linea = entrada.readLine();
             }
         } catch (Exception e) {
@@ -57,6 +61,7 @@ public class Hijo {
         }
     }
 
+    // Función que verifica si un número es primo
     public static boolean esPrimo(int n) {
         if (n == 2) return true;
         if (n % 2 == 0) return false;

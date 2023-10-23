@@ -21,17 +21,21 @@ public class Padre {
 
             Process hijo = null;
 
+            // Preparación para leer desde la entrada estándar
             BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("Escribe un numero primo");
+            System.out.println("Escribe un número primo");
             linea = teclado.readLine();
 
             while (!linea.equals("fin")) {
                 // Iniciar el proceso hijo
                 hijo = runtime.exec("java actividad1x05.Hijo", null, directorioBin);
 
+                // Preparación para leer desde la salida del proceso hijo
                 entradaHijo = new BufferedReader(new InputStreamReader(hijo.getInputStream()));
+                // Preparación para escribir en la entrada del proceso hijo
                 salidaHijo = new PrintStream(hijo.getOutputStream());
 
+                // Enviar la línea al proceso hijo
                 salidaHijo.println(linea);
                 salidaHijo.flush(); // Asegura que los datos se han enviado
                 numero = entradaHijo.readLine();
@@ -47,7 +51,7 @@ public class Padre {
                 }
 
                 System.out.println("Escribe algo ");
-                // Vuelve a preguntar
+                // Vuelve a preguntar al usuario
                 linea = teclado.readLine();
             }
 
