@@ -16,7 +16,7 @@ public class Padre {
 
         try {
             // Configuración del directorio donde se encuentra el proceso hijo
-            File directorio = new File("bin");
+            File directorioBin = new File("bin");
             Runtime runtime = Runtime.getRuntime();
 
             Process hijo = null;
@@ -27,7 +27,7 @@ public class Padre {
 
             while (!linea.equals("fin")) {
                 // Iniciar el proceso hijo
-                hijo = runtime.exec("java actividad1x05.Hijo", null, new File("bin"));
+                hijo = runtime.exec("java actividad1x05.Hijo", null, directorioBin);
 
                 entradaHijo = new BufferedReader(new InputStreamReader(hijo.getInputStream()));
                 salidaHijo = new PrintStream(hijo.getOutputStream());
@@ -38,7 +38,11 @@ public class Padre {
 
                 while (!numero.equals("finproceso")) {
                     // Mostrar la respuesta del proceso hijo
-                    System.out.println(numero);
+                    if (numero.equals("dato_invalido")) {
+                        System.out.println("Dato no válido");
+                    } else {
+                        System.out.println(numero);
+                    }
                     numero = entradaHijo.readLine();
                 }
 
@@ -47,11 +51,14 @@ public class Padre {
                 linea = teclado.readLine();
             }
 
-            hijo.destroy();
+            hijo.waitFor(); // Espera a que el proceso hijo termine
 
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
+        } catch (InterruptedException e) {
+            System.err.println("Error al esperar al proceso hijo: " + e.getMessage());
+            e.printStackTrace();
         } finally {
             try {
                 if (entradaHijo != null) {
@@ -60,7 +67,6 @@ public class Padre {
                 if (salidaHijo != null) {
                     salidaHijo.close();
                 }
-                System.out.println("Fin del programa");
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
