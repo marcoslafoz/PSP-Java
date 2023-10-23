@@ -26,9 +26,9 @@ public class Padre {
             System.out.println("Escribe un número primo");
             linea = teclado.readLine();
 
-            while (!linea.equals("fin")) {
+            while (linea != null && !linea.equals("fin")) {
                 // Iniciar el proceso hijo
-                hijo = runtime.exec("java actividad1x05.Hijo", null, directorioBin);
+                hijo = runtime.exec("java actividad1x04v2.Hijo", null, directorioBin);
 
                 // Preparación para leer desde la salida del proceso hijo
                 entradaHijo = new BufferedReader(new InputStreamReader(hijo.getInputStream()));
@@ -40,7 +40,7 @@ public class Padre {
                 salidaHijo.flush(); // Asegura que los datos se han enviado
                 numero = entradaHijo.readLine();
 
-                while (!numero.equals("finproceso")) {
+                while (numero != null && !numero.equals("finproceso")) {
                     // Mostrar la respuesta del proceso hijo
                     if (numero.equals("dato_invalido")) {
                         System.out.println("Dato no válido");

@@ -42,14 +42,15 @@ public class Hijo {
                         salida.println("El número " + numprimo + " es primo");
                         salida.flush();
                     }
-                    // Indicar al padre que ha terminado este proceso hijo
-                    salida.println("finproceso");
-                    salida.flush();
                 } catch (NumberFormatException e) {
                     // Enviar mensaje de dato no válido al padre
                     salida.println("dato_invalido");
                     salida.flush();
                 }
+                // Indicar al padre que ha terminado este proceso hijo
+                salida.println("finproceso");
+                salida.flush();
+
                 // Volvemos a preguntar al Padre
                 linea = entrada.readLine();
             }
