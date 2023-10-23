@@ -22,7 +22,6 @@ public class Hijo {
 			while (linea != null) {
 
 				int numprimo = Integer.parseInt(linea);
-				int cont = 0;
 
 				if (!esPrimo(numprimo)) {
 
