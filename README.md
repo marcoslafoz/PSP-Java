@@ -1,6 +1,6 @@
-# Ejercicios PSP-Java 2º DAM-DUAL
+# Ejercicios PSP-Java 2ºDAM
 
-- ## [PDF Enunciados](UD01-Actividades.pdf)
+- ## [UD01-Actividades](UD01-Actividades.pdf)
 - ### [actividad1x01](Ejercicios/src/actividad1x01)
 - ### [actividad1x02](Ejercicios/src/actividad1x02)
 - ### [actividad1x03](Ejercicios/src/actividad1x03)
