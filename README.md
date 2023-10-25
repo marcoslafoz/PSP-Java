@@ -1,9 +1,9 @@
 # Ejercicios PSP-Java 2ºDAM
 
 - ## [UD01-Actividades](UD01-Actividades.pdf)
-- ### [actividad1x01](Ejercicios/src/actividad1x01)
-- ### [actividad1x02](Ejercicios/src/actividad1x02)
-- ### [actividad1x03](Ejercicios/src/actividad1x03)
-- ### [actividad1x04](Ejercicios/src/actividad1x04)
-- ### [actividad1x04v2](Ejercicios/src/actividad1x04v2)
-- ### [actividad1x05](Ejercicios/src/actividad1x05)
+- ### [ejercicio1x01](EjerciciosPSP/src/ejercicio1x01)
+- ### [ejercicio1x02](EjerciciosPSP/src/ejercicio1x02)
+- ### [ejercicio1x03](EjerciciosPSP/src/ejercicio1x03)
+- ### [ejercicio1x04](EjerciciosPSP/src/ejercicio1x04)
+- ### [ejercicio1x04v2](EjerciciosPSP/src/ejercicio1x04v2)
+- ### [ejercicio1x05](EjerciciosPSP/src/ejercicio1x05)

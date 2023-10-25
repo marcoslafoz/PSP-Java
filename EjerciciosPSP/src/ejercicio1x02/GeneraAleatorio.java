@@ -1,4 +1,4 @@
-package actividad1x02;
+package ejercicio1x02;
 
 import java.io.IOException;
 import java.util.Random;

@@ -1,4 +1,4 @@
-package actividad1x04v2;
+package ejercicio1x04v2;
 
 import java.io.BufferedReader;
 import java.io.File;

@@ -1,4 +1,4 @@
-package actividad1x01;
+package ejercicio1x01;
 
 import java.io.IOException;
 
