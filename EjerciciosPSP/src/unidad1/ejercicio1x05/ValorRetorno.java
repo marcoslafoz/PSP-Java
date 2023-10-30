@@ -1,4 +1,4 @@
-package ejercicio1x05;
+package unidad1.ejercicio1x05;
 
 import java.util.Random;
 

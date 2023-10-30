@@ -1,4 +1,4 @@
-package ejercicio1x04v2;
+package unidad1.ejercicio1x04v2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
