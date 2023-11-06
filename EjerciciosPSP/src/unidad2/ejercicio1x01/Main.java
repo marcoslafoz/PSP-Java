@@ -29,7 +29,7 @@ class HiloFibonacci extends Thread{
 
 	@Override
 	public void run() {
-		Fibonacci.FibonacciSequence(nValue);
+		Fibonacci.FibonacciSequence(nValue, nombre);
 	}
 	
     
