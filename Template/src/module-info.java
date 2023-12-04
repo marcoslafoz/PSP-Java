@@ -1,0 +1,3 @@
+module Template {
+	requires teclado;
+}
