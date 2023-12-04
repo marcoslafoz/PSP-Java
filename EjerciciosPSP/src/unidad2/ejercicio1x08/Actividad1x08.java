@@ -3,22 +3,22 @@ package unidad2.ejercicio1x08;
 import java.util.Random;
 
 class Barrera {
-    private int[] plazas;
+    private Coche[] coches;
     private int plazasLibres;
 
     public Barrera(int numPlazas) {
-        this.plazas = new int[numPlazas];
+        this.coches = new Coche[numPlazas];
         this.plazasLibres = numPlazas;
     }
 
-    public synchronized int entrar() {
+    public synchronized int entrar(Coche coche) {
         int plazaAsignada = -1;
 
         if (plazasLibres > 0) {
-            for (int i = 0; i < plazas.length; i++) {
-                if (plazas[i] == 0) {
+            for (int i = 0; i < coches.length; i++) {
+                if (coches[i] == null) {
                     plazaAsignada = i;
-                    plazas[i] = (int) Thread.currentThread().getId();
+                    coches[i] = coche;
                     plazasLibres--;
                     break;
                 }
@@ -29,14 +29,18 @@ class Barrera {
     }
 
     public synchronized void salir(int plaza) {
-        plazas[plaza] = 0;
+        coches[plaza] = null;
         plazasLibres++;
     }
 
     public synchronized void mostrarEstado() {
         System.out.print("Parking: ");
-        for (int i : plazas) {
-            System.out.print("[" + i + "] ");
+        for (int i = 0; i < coches.length; i++) {
+            if (coches[i] != null) {
+                System.out.print("[C-" + coches[i].getCocheId() + "] ");
+            } else {
+                System.out.print("[0] ");
+            }
         }
         System.out.println();
     }
@@ -61,7 +65,7 @@ class Coche extends Thread {
             e.printStackTrace();
         }
 
-        int plaza = barrera.entrar();
+        int plaza = barrera.entrar(this);
 
         if (plaza != -1) {
             System.out.println("Parking: Coche " + cocheId + " aparcado en " + plaza);
@@ -80,11 +84,15 @@ class Coche extends Thread {
             System.out.println("Coche " + cocheId + " esperando");
         }
     }
+
+    public int getCocheId() {
+        return cocheId;
+    }
 }
 
 public class Actividad1x08 {
     private static final int NUMERO_SITIOS = 5;
-    private static final int NUMERO_COCHES = 5;
+    private static final int NUMERO_COCHES = 20;
 
     public static void main(String[] args) {
         Barrera barrera = new Barrera(NUMERO_SITIOS);

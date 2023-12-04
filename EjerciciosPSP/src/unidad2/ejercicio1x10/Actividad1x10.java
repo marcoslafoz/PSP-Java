@@ -115,7 +115,7 @@ class Frutero extends Thread {
     }
 }
 
-public class Principal {
+public class Actividad1x10 {
     public static void main(String[] args) {
         Semaphore semaforoAtencion = new Semaphore(1);
         Semaphore semaforoSalida = new Semaphore(0);
