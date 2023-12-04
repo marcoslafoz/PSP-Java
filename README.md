@@ -15,4 +15,7 @@
 - ### [ejercicio1x04](EjerciciosPSP/src/unidad2/ejercicio1x04)
 - ### [ejercicio1x05](EjerciciosPSP/src/unidad2/ejercicio1x05)
 - ### [ejercicio1x06](EjerciciosPSP/src/unidad2/ejercicio1x06)
+- ### [ejercicio1x07](EjerciciosPSP/src/unidad2/ejercicio1x07)
+- ### [ejercicio1x08](EjerciciosPSP/src/unidad2/ejercicio1x07)
+- ### [ejercicio1x09](EjerciciosPSP/src/unidad2/ejercicio1x07)
 - ### [ejercicio1x10](EjerciciosPSP/src/unidad2/ejercicio1x10)
