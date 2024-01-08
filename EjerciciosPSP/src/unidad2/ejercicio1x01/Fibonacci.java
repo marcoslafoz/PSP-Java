@@ -7,17 +7,19 @@ public class Fibonacci {
             return;
         }
 
+        String acumulador = "";
+        
         int a = 0, b = 1;
-        System.out.print("Hilo: " + name + ", Secuencia de Fibonacci hasta " + n + ": ");
-        System.out.print(a);
+        acumulador += ("Hilo: " + name + ", Secuencia de Fibonacci hasta " + n + ": ");
+        //System.out.print(a);
 
         while (b <= n) {
-            System.out.print(", " + b);
+        	 acumulador += (", " + b);
             int temp = a + b;
             a = b;
             b = temp;
         }
 
-        System.out.println();
+        System.out.println(acumulador);
     }
 }
