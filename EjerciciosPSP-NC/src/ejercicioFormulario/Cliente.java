@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
-public class EncuestaCliente {
+public class Cliente {
 	public static void main(String[] args) {
 		try {
 			Socket socket = new Socket(ServerConfig.ipServidor, ServerConfig.puertoServidor);
@@ -22,16 +22,9 @@ public class EncuestaCliente {
 				out.writeObject(respuesta);
 			}
 
-			// Recibir resumen de la encuesta
-			System.out.println("\n--- Resumen de la encuesta ---");
-			String resumen;
-			while (!(resumen = (String) in.readObject()).equals("FIN")) {
-				System.out.println(resumen);
-				String pregunta = (String) in.readObject();
-				System.out.println(pregunta);
-				String resultado = (String) in.readObject();
-				System.out.println(resultado);
-			}
+			// Recibir y mostrar resumen de la encuesta
+			String resumen = (String) in.readObject();
+			System.out.println(resumen);
 
 			// Cerrar conexiones
 			out.close();
