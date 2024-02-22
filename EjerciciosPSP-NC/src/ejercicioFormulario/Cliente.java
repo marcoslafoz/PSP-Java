@@ -15,11 +15,20 @@ public class Cliente {
 			Scanner scanner = new Scanner(System.in);
 
 			// Recibir preguntas y enviar respuestas
-			for (int i = 0; i < 3; i++) {
+
+			boolean recibirPreguntas = true;
+
+			while (recibirPreguntas) {
+
 				String pregunta = (String) in.readObject();
-				System.out.println(pregunta + " (Responde si/no):");
-				String respuesta = scanner.nextLine().toLowerCase();
-				out.writeObject(respuesta);
+
+				if (!pregunta.equals("FIN")) {
+					System.out.println(pregunta + " (Responde si/no):");
+					String respuesta = scanner.nextLine().toLowerCase();
+					out.writeObject(respuesta);
+				} else {
+					recibirPreguntas = false;
+				}
 			}
 
 			// Recibir y mostrar resumen de la encuesta

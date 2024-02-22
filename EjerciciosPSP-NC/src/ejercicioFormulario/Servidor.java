@@ -18,6 +18,8 @@ public class Servidor {
 			listaPreguntas.add(new Pregunta("¿Te gusta el color azul?", "si"));
 			listaPreguntas.add(new Pregunta("¿Has viajado al extranjero?", "si"));
 			listaPreguntas.add(new Pregunta("¿Te gusta el color azul?", "si"));
+			listaPreguntas.add(new Pregunta("¿Te gusta el color blanco?", "si"));
+			listaPreguntas.add(new Pregunta("¿Te gusta el color negro?", "si"));
 
 			while (true) {
 				Socket clienteSocket = serverSocket.accept();

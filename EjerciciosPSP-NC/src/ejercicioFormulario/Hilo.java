@@ -36,6 +36,8 @@ public class Hilo implements Runnable {
 				}
 
 			}
+			
+			out.writeObject("FIN");
 
 			int contadorPreguntasResumen = 0;
 			String textoResumen = "Resumen\n";
