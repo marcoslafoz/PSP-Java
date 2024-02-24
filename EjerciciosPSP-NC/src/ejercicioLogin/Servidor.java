@@ -10,7 +10,7 @@ public class Servidor {
 
 	public static void actualizarListaUsuarios(Usuario usuario) {
 		listaUsuarios.add(usuario);
-		System.out.println("Usuario añadido " + usuario.toString());
+		System.out.println("Usuario añadido -> " + usuario.toString());
 	}
 
 	public static List<Usuario> getListaUsuarios() {

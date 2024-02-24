@@ -25,7 +25,7 @@ public class Hilo implements Runnable {
 			out.writeObject("Introduce el departamento: ");
 			String departamentoUsuario = (String) in.readObject();
 
-			out.writeObject("Introduce LA edad: ");
+			out.writeObject("Introduce la edad: ");
 			int edadUsuario = Integer.parseInt((String) in.readObject());
 
 			out.writeObject("FIN");
@@ -34,6 +34,9 @@ public class Hilo implements Runnable {
 
 			// Agregar nuevo usuario a la lista
 			Servidor.actualizarListaUsuarios(usuario);
+			
+			// Enviar resumen
+			out.writeObject(usuario.toString());
 
 			// Cerrar conexiones
 			out.close();
