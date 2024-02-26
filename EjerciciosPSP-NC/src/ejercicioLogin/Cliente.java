@@ -8,44 +8,37 @@ import entrada.Teclado;
 
 public class Cliente {
 	public static void main(String[] args) {
-	
-		//TODO: Instanciamos aqui los flujos 
-		//teclado = new BufferedReader (new InputStreamReader(System.in)) // podemos usar Teclado
-		// fsalida = new printwriter (cliente.getOutputStream(), true)
-		// fentrada = new BufferedReader (new InputStreamReader(cliente.getInputStream()))
-		//instanciamos socket 
-		
+
+		PrintWriter fsalida;
+		BufferedReader fentrada;
+		Socket socket;
+
 		try {
-			Socket socket = new Socket(ServerConfig.ipServidor, ServerConfig.puertoServidor);
-			//Y aqui asignamos loa flujos pero no los instanciamos
-			// Establecer canales de comunicación
-			ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-			ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-			Scanner scanner = new Scanner(System.in);
+			socket = new Socket(ServerConfig.ipServidor, ServerConfig.puertoServidor);
+			fsalida = new PrintWriter(socket.getOutputStream(), true);
+			fentrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 			// Recibir preguntas y enviar respuestas
 			boolean recibirPreguntas = true;
 
 			while (recibirPreguntas) {
-				String pregunta = (String) in.readObject();
+				String pregunta = fentrada.readLine();
 
 				if (!pregunta.equals("FIN")) {
-					out.writeObject(Teclado.leerCadena(pregunta));
+					fsalida.println(Teclado.leerCadena(pregunta));
 				} else {
 					recibirPreguntas = false;
 				}
 			}
 
 			// Recibir y mostrar el usuario
-			String resumen = (String) in.readObject();
+			String resumen = (String) fentrada.readLine();
 			System.out.println(resumen);
 
-
-			out.close();
-			in.close();
+			fsalida.close();
+			fentrada.close();
 			socket.close();
-			scanner.close();
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

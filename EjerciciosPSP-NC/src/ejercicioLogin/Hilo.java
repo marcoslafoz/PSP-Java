@@ -1,67 +1,65 @@
 package ejercicioLogin;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.List;
 
 //extends thrad
-public class Hilo implements Runnable {
+public class Hilo extends Thread {
 	private Socket clienteSocket;
+	private List<Usuario> listaUsuarios;
 
-	//socjer socket
-	//nstancuamos lista usuarios
-	//Aqui le pasamos la lista de usuarios
-	
-	//y le pasamos la lista de usuarios
-	public Hilo(Socket clienteSocket) {
+	public Hilo(Socket clienteSocket, List<Usuario> listaUsuarios) {
 		this.clienteSocket = clienteSocket;
-		//this.usuarios = usuarios
+		this.listaUsuarios = listaUsuarios;
+
 	}
 
 	@Override
 	public void run() {
-		
-		//TODO: aqui instanciamos esto de abajo y lo ponemos a null
-		//printwriter
-		//buffered reader
-			
+
+		// TODO: aqui instanciamos esto de abajo y lo ponemos a null
+		// printwriter
+		// buffered reader
+
+		PrintWriter fsalida;
+		BufferedReader fentrada;
+
 		try {
-			// Establecer canales de comunicación
-			ObjectOutputStream out = new ObjectOutputStream(clienteSocket.getOutputStream());
-			ObjectInputStream in = new ObjectInputStream(clienteSocket.getInputStream());
-						
-			//fsalida = new PrintWriter (socket.getOutputStream(), true)
-			//fentrada = new BufferedReader (new InputStreamReader(socket.getInputStream()))
+			fsalida = new PrintWriter(clienteSocket.getOutputStream(), true);
+			fentrada = new BufferedReader(new InputStreamReader(clienteSocket.getInputStream()));
 
+			fsalida.println("Introduce el nombre: ");
+			String nombreUsuario = fentrada.readLine();
 
-			//readLine
-			
-			out.writeObject("Introduce el nombre: ");
-			String nombreUsuario = (String) in.readObject();
+			fsalida.println("Introduce el departamento: ");
+			String departamentoUsuario = fentrada.readLine();
 
-			out.writeObject("Introduce el departamento: ");
-			String departamentoUsuario = (String) in.readObject();
+			fsalida.println("Introduce la edad: ");
+			int edadUsuario = Integer.parseInt(fentrada.readLine());
 
-			out.writeObject("Introduce la edad: ");
-			int edadUsuario = Integer.parseInt((String) in.readObject());
-
-			out.writeObject("FIN");
+			fsalida.println("FIN");
 
 			Usuario usuario = new Usuario(nombreUsuario, departamentoUsuario, edadUsuario);
 
 			// Agregar nuevo usuario a la lista
-			Servidor.actualizarListaUsuarios(usuario);
-			
+			listaUsuarios.add(usuario);
+
 			// Enviar resumen
-			out.writeObject(usuario.toString());
+			fsalida.println(listaUsuarios.toString());
+			
 
 			// Cerrar conexiones
-			out.close();
-			in.close();
+			fsalida.close();
+			fentrada.close();
 			clienteSocket.close();
 
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
