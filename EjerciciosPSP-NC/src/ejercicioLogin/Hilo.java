@@ -3,13 +3,10 @@ package ejercicioLogin;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.List;
 
-//extends thrad
 public class Hilo extends Thread {
 	private Socket clienteSocket;
 	private List<Usuario> listaUsuarios;
@@ -22,10 +19,6 @@ public class Hilo extends Thread {
 
 	@Override
 	public void run() {
-
-		// TODO: aqui instanciamos esto de abajo y lo ponemos a null
-		// printwriter
-		// buffered reader
 
 		PrintWriter fsalida;
 		BufferedReader fentrada;
@@ -52,7 +45,6 @@ public class Hilo extends Thread {
 
 			// Enviar resumen
 			fsalida.println(listaUsuarios.toString());
-			
 
 			// Cerrar conexiones
 			fsalida.close();

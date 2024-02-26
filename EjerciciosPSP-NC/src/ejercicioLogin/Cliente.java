@@ -2,7 +2,6 @@ package ejercicioLogin;
 
 import java.io.*;
 import java.net.*;
-import java.util.Scanner;
 
 import entrada.Teclado;
 
