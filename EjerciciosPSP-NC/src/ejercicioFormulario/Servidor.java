@@ -7,13 +7,14 @@ import java.util.List;
 
 public class Servidor {
 	public static void main(String[] args) {
-		ServerSocket serverSocket;
+		ServerSocket serverSocket = null;
+		Socket clienteSocket = null;
+		List<Pregunta> listaPreguntas = new ArrayList<>();
 
 		try {
 			serverSocket = new ServerSocket(ServerConfig.puertoServidor);
 			System.out.println("Servidor iniciado. Esperando clientes...");
 
-			List<Pregunta> listaPreguntas = new ArrayList<>();
 
 			listaPreguntas.add(new Pregunta("¿Te gusta el color azul?", "si"));
 			listaPreguntas.add(new Pregunta("¿Has viajado al extranjero?", "si"));
@@ -22,11 +23,11 @@ public class Servidor {
 			listaPreguntas.add(new Pregunta("¿Te gusta el color negro?", "si"));
 
 			while (true) {
-				Socket clienteSocket = serverSocket.accept();
+				clienteSocket = serverSocket.accept();
 				System.out.println("Nuevo cliente conectado");
 
 				// Crear un nuevo hilo para manejar el cliente
-				Thread clientThread = new Thread(new Hilo(clienteSocket, listaPreguntas));
+				Hilo clientThread = new Hilo(clienteSocket, listaPreguntas);
 				clientThread.start();
 			}
 		} catch (IOException e) {

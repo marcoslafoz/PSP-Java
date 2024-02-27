@@ -1,12 +1,15 @@
 package ejercicioFormulario;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.List;
 
-public class Hilo implements Runnable {
+public class Hilo extends Thread {
 	private Socket clienteSocket;
 	private List<Pregunta> listaPreguntas;
 
@@ -17,17 +20,19 @@ public class Hilo implements Runnable {
 
 	@Override
 	public void run() {
+		PrintWriter fsalida;
+		BufferedReader fentrada;
 		try {
-			// Establecer canales de comunicación
-			ObjectOutputStream out = new ObjectOutputStream(clienteSocket.getOutputStream());
-			ObjectInputStream in = new ObjectInputStream(clienteSocket.getInputStream());
+
+			fsalida = new PrintWriter(clienteSocket.getOutputStream(), true);
+			fentrada = new BufferedReader(new InputStreamReader(clienteSocket.getInputStream()));
 
 			String respuestaCliente;
 
 			for (Pregunta p : listaPreguntas) {
-				out.writeObject(p.printEnunciado());
+				fsalida.println(p.printEnunciado());
 
-				respuestaCliente = ((String) in.readObject()).trim().toLowerCase();
+				respuestaCliente = ((String) fentrada.readLine()).trim().toLowerCase();
 
 				if (respuestaCliente.equals(p.getRespuesta())) {
 					p.aumentarContadorCorrectas();
@@ -36,25 +41,24 @@ public class Hilo implements Runnable {
 				}
 
 			}
-			
-			out.writeObject("FIN");
+
+			fsalida.println("FIN");
 
 			int contadorPreguntasResumen = 0;
-			String textoResumen = "Resumen\n";
+			String textoResumen = "Resumen ->";
 
 			for (Pregunta p : listaPreguntas) {
 				contadorPreguntasResumen++;
-				textoResumen += ("Pregunta " + contadorPreguntasResumen + ": T(" + p.getContadorCorrectas() + ") F("
-						+ p.getContadorIncorrectas() + ")\n");
+				textoResumen += (" P-" + contadorPreguntasResumen + " T(" + p.getContadorCorrectas() + ")F(" + p.getContadorIncorrectas() + ")");
 			}
 
-			out.writeObject(textoResumen);
+			fsalida.println(textoResumen);
 
 			// Cerrar conexiones
-			out.close();
-			in.close();
+			fsalida.close();
+			fentrada.close();
 			clienteSocket.close();
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

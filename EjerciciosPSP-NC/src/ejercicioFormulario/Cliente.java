@@ -4,15 +4,21 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
+import entrada.Teclado;
+
 public class Cliente {
 	public static void main(String[] args) {
-		try {
-			Socket socket = new Socket(ServerConfig.ipServidor, ServerConfig.puertoServidor);
+		
+		PrintWriter fsalida;
+		BufferedReader fentrada;
+		Socket socket;
 
-			// Establecer canales de comunicación
-			ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-			ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-			Scanner scanner = new Scanner(System.in);
+		
+		try {
+			socket = new Socket(ServerConfig.ipServidor, ServerConfig.puertoServidor);
+
+			fsalida = new PrintWriter(socket.getOutputStream(), true);
+			fentrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 			// Recibir preguntas y enviar respuestas
 
@@ -20,27 +26,25 @@ public class Cliente {
 
 			while (recibirPreguntas) {
 
-				String pregunta = (String) in.readObject();
+				String pregunta = (String) fentrada.readLine();
 
 				if (!pregunta.equals("FIN")) {
-					System.out.println(pregunta + " (Responde si/no):");
-					String respuesta = scanner.nextLine().toLowerCase();
-					out.writeObject(respuesta);
+					String respuesta = Teclado.leerCadena(pregunta + " (Responde si/no):");
+					fsalida.println(respuesta);
 				} else {
 					recibirPreguntas = false;
 				}
 			}
 
 			// Recibir y mostrar resumen de la encuesta
-			String resumen = (String) in.readObject();
+			String resumen = (String) fentrada.readLine();
 			System.out.println(resumen);
 
 			// Cerrar conexiones
-			out.close();
-			in.close();
+			fsalida.close();
+			fentrada.close();
 			socket.close();
-			scanner.close();
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
